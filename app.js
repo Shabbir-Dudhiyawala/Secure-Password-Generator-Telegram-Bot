@@ -2,14 +2,13 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const port = process.env.PORT || 8000;
-const { Composer } = require("micro-bot");
+const { Telegraf } = require("telegraf");
 var generator = require("generate-password");
 var bf = require("./botFunctions");
 var gp = require("./generatePasswordFunctions");
 
 // BOT
-const bot = new Composer();
-module.exports = bot;
+const bot = new Telegraf(process.env.BOT_TOKEN);
 
 bot.start((ctx) => bf.sendWelcomeMessage(ctx));
 
