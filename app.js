@@ -2,13 +2,16 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const port = process.env.PORT || 8000;
-const { Telegraf } = require("telegraf");
+// const { Telegraf } = require("telegraf");
+const { Composer } = require("micro-bot");
+
 var generator = require("generate-password");
 var bf = require("./botFunctions");
 var gp = require("./generatePasswordFunctions");
 
 // BOT
-const bot = new Telegraf(process.env.BOT_TOKEN);
+// const bot = new Telegraf(process.env.BOT_TOKEN);
+const bot = new Composer();
 
 bot.start((ctx) => bf.sendWelcomeMessage(ctx));
 
@@ -46,7 +49,9 @@ bot.command("quit", (ctx) => {
   process.once("SIGINT", () => bot.stop("SIGINT"));
   process.once("SIGTERM", () => bot.stop("SIGTERM"));
 });
-bot.launch();
+// bot.launch();
+module.exports = bot;
+
 // Bot End
 
 app.listen(port, () => {
